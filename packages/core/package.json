@@ -1,6 +1,6 @@
 {
   "name": "@kenkinsai/usedapp",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist/cjs/src/index.js",
   "module": "dist/esm/src/index.js",
   "types": "dist/esm/src/index.d.ts",
@@ -46,7 +46,7 @@
   },
   "scripts": {
     "build": "yarn run build:esm && yarn run build:cjs",
-    "build:esm": "tsc --module es2020 --target es2017 --outDir dist/esm",
+    "build:esm": "tsc --module es2020 --target es2019 --outDir dist/esm",
     "build:cjs": "tsc --outDir dist/cjs",
     "test": "mocha",
     "lint": "yarn lint:prettier --check && yarn lint:eslint",
