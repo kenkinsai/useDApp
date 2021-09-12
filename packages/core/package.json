@@ -1,6 +1,6 @@
 {
   "name": "@kenkinsai/usedapp",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "main": "dist/cjs/src/index.js",
   "module": "dist/esm/src/index.js",
   "types": "dist/esm/src/index.d.ts",
