@@ -11,6 +11,7 @@ export type MulticallAddresses = {
 export type FullConfig = {
   readOnlyChainId?: ChainId
   readOnlyUrls?: NodeUrls
+  switchingChainId?: ChainId
   multicallAddresses?: MulticallAddresses
   supportedChains: number[]
   pollingInterval?: number

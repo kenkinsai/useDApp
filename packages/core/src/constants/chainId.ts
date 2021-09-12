@@ -12,6 +12,7 @@ export enum ChainId {
   Harmony = 1666600000,
   Localhost = 1337,
   Hardhat = 31337,
+  BSCTest = 97,
 }
 
 export const CHAIN_NAMES = {
@@ -28,6 +29,7 @@ export const CHAIN_NAMES = {
   [ChainId.Harmony]: 'Harmony',
   [ChainId.Localhost]: 'Localhost',
   [ChainId.Hardhat]: 'Hardhat',
+  [ChainId.BSCTest]: 'BSCTest',
 }
 
 export const MULTICALL_ADDRESSES = {
@@ -42,6 +44,7 @@ export const MULTICALL_ADDRESSES = {
   [ChainId.Moonriver]: '0xa9177F8d98DAaB74C24715Ba0A81b73654710523',
   [ChainId.Mumbai]: '0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc',
   [ChainId.Harmony]: '0xFE4980f62D708c2A84D3929859Ea226340759320',
+  [ChainId.BSCTest]: '0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C',
 }
 
 export const TEST_CHAINS = [
@@ -52,6 +55,7 @@ export const TEST_CHAINS = [
   ChainId.Mumbai,
   ChainId.Localhost,
   ChainId.Hardhat,
+  ChainId.BSCTest,
 ]
 
 export const LOCAL_CHAINS = [ChainId.Localhost, ChainId.Hardhat]
