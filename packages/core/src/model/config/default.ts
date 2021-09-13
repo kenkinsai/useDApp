@@ -22,5 +22,5 @@ export const DEFAULT_CONFIG: FullConfig = {
   notifications: {
     checkInterval: 500,
     expirationPeriod: 5000,
-  },
+  }
 }

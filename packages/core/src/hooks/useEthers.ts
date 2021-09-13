@@ -14,23 +14,25 @@ import { ChainId,ConnectorNames, CONNECTOR_LOCAL_STORAGE_KEY } from '../constant
 import { useCallback } from 'react'
 import { useConfig } from '../providers/config/context'
 import { InjectedConnector } from '@web3-react/injected-connector'
-import { rpcURLs } from '../helpers'
+import { getRpcUrls, setupNetwork} from '../helpers'
+import { AbstractConnector } from '@web3-react/abstract-connector'
 
-type ActivateBrowserWallet = (connectorId?:ConnectorNames,setupNetwork?: () => Promise<boolean>, onError?: (error: Error) => void, throwErrors?: boolean) => void
+type ActivateBrowserWallet = (connectorId:ConnectorNames,onError?: (error: Error) => void, throwErrors?: boolean) => void
 type DeactiveBrowserWallet = () => void
-const connectorByName = (connectorId?:ConnectorNames, supportedChainIds?:number[]) => {
+
+const connectorByName = (connectorId?:ConnectorNames, chainIds?:number[], fullChainIds?:number[], pollingInterval?:number) => {
   if (connectorId === ConnectorNames.Injected){
-    return new InjectedConnector({ supportedChainIds: supportedChainIds })
+    return new InjectedConnector({ supportedChainIds: chainIds })
   }
   if (connectorId === ConnectorNames.BSC){
-    return new BscConnector({ supportedChainIds: supportedChainIds })
+    return new BscConnector({ supportedChainIds: chainIds })
   }
 
   return new WalletConnectConnector({
-    supportedChainIds: supportedChainIds,
+    supportedChainIds: chainIds,
     qrcode: true,
-    rpc:  rpcURLs(supportedChainIds),
-    pollingInterval: 12000
+    rpc: getRpcUrls(fullChainIds),
+    pollingInterval: pollingInterval,
   })
 }
 
@@ -60,16 +62,18 @@ export type Web3Ethers = ReturnType<typeof useWeb3React> & {
 
 export function useEthers(): Web3Ethers {
   const result = useWeb3React<Web3Provider>()
-  const { supportedChains, switchingChainId} = useConfig()
+  const { supportedChains, switchingChainId, pollingInterval} = useConfig()
   const chainIds = (switchingChainId === undefined) ? supportedChains : [switchingChainId]
+  
   const activateBrowserWallet = useCallback<ActivateBrowserWallet>(
-    async (connectorId,setupNetwork, onError, throwErrors) => {
-        const connector = connectorByName(connectorId,chainIds)
-        if (connector){
-          await result.activate(connector, async (error: Error) => {
-            if (error instanceof UnsupportedChainIdError){
-              if (setupNetwork instanceof Function) {
-                const hasSetup = await setupNetwork()
+    (connectorId, onError, throwErrors) => {
+      const connector = connectorByName(connectorId,chainIds,supportedChains,pollingInterval)
+      if (connector){
+          result.activate(connector, async (error: Error) => {
+              if (!(connector instanceof WalletConnectConnector) && 
+                  error instanceof UnsupportedChainIdError){
+              if (switchingChainId) {
+                const hasSetup = await setupNetwork(switchingChainId)
                 if (hasSetup) {
                   result.activate(connector)
                 }
@@ -92,20 +96,19 @@ export function useEthers(): Web3Ethers {
           },throwErrors)
         }
     },
-    [result,chainIds]
+    [result,chainIds,pollingInterval,switchingChainId,supportedChains]
   )
 
   const logout = useCallback<DeactiveBrowserWallet>(() => {
     result.deactivate()
     if (window.localStorage.getItem('walletconnect')) {
-      const connector = connectorByName(ConnectorNames.WalletConnect,chainIds)
-      if (connector instanceof WalletConnectConnector){
-        connector.close()
-        connector.walletConnectProvider = null
+      if (result.connector instanceof WalletConnectConnector){
+          result.connector.close()
+          result.connector.walletConnectProvider = null
       }
     }
     window.localStorage.removeItem(CONNECTOR_LOCAL_STORAGE_KEY)
-  }, [result,chainIds])
+  }, [result])
 
   return { ...result,activateBrowserWallet,logout} 
 }

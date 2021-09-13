@@ -21,7 +21,7 @@ export const CHAIN_NAMES = {
   [ChainId.Kovan]: 'Kovan',
   [ChainId.Rinkeby]: 'Rinkeby',
   [ChainId.Goerli]: 'Goerli',
-  [ChainId.BSC]: 'BSC',
+  [ChainId.BSC]: 'Binance Smart Chain Mainnet',
   [ChainId.xDai]: 'xDai',
   [ChainId.Polygon]: 'Polygon',
   [ChainId.Moonriver]: 'Moonriver',
@@ -29,7 +29,7 @@ export const CHAIN_NAMES = {
   [ChainId.Harmony]: 'Harmony',
   [ChainId.Localhost]: 'Localhost',
   [ChainId.Hardhat]: 'Hardhat',
-  [ChainId.BSCTest]: 'BSCTest',
+  [ChainId.BSCTest]: 'Binance Smart Chain Testnet',
 }
 
 export const MULTICALL_ADDRESSES = {

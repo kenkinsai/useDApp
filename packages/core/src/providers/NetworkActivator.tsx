@@ -22,7 +22,6 @@ const _binanceChainListener = async () =>
 export function NetworkActivator() {
   const { activate, account, chainId: connectedChainId, active, connector, activateBrowserWallet} = useEthers()
   const { readOnlyChainId, readOnlyUrls} = useConfig()
-
   useEffect(() => {
     const eagerConnect = async () => {
       const connectorId = window.localStorage.getItem(CONNECTOR_LOCAL_STORAGE_KEY) as ConnectorNames
@@ -36,7 +35,14 @@ export function NetworkActivator() {
           _binanceChainListener().then(() => activateBrowserWallet && activateBrowserWallet(connectorId))
           return
         }
-        activateBrowserWallet && activateBrowserWallet(connectorId)
+
+        if (connectorId === ConnectorNames.Injected && connector instanceof InjectedConnector){
+          if (await connector.isAuthorized()){
+              activateBrowserWallet && activateBrowserWallet(connectorId)
+          }
+        }else if (!account){
+          activateBrowserWallet && activateBrowserWallet(connectorId)
+        }
       }
       // const injected = new InjectedConnector({ supportedChainIds: chainIds })
       // if (await injected.isAuthorized()) {
