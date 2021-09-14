@@ -100,6 +100,7 @@ export function useEthers(): Web3Ethers {
   )
 
   const logout = useCallback<DeactiveBrowserWallet>(() => {
+    window.localStorage.removeItem(CONNECTOR_LOCAL_STORAGE_KEY)
     result.deactivate()
     if (window.localStorage.getItem('walletconnect')) {
       if (result.connector instanceof WalletConnectConnector){
@@ -107,7 +108,6 @@ export function useEthers(): Web3Ethers {
           result.connector.walletConnectProvider = null
       }
     }
-    window.localStorage.removeItem(CONNECTOR_LOCAL_STORAGE_KEY)
   }, [result])
 
   return { ...result,activateBrowserWallet,logout} 
