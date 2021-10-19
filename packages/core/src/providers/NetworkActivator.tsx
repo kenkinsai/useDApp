@@ -36,11 +36,7 @@ export function NetworkActivator() {
           return
         }
 
-        if (connectorId === ConnectorNames.Injected && connector instanceof InjectedConnector){
-          if (await connector.isAuthorized()){
-              activateBrowserWallet && activateBrowserWallet(connectorId)
-          }
-        }else if (!account){
+        if (!activate || !account){
           activateBrowserWallet && activateBrowserWallet(connectorId)
         }
       }
@@ -50,7 +46,7 @@ export function NetworkActivator() {
       // }
     }
     eagerConnect()
-  }, [activateBrowserWallet])
+  }, [activateBrowserWallet,account,connectedChainId,connector])
 
   useEffect(() => {
     if (readOnlyChainId && readOnlyUrls) {

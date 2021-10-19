@@ -108,7 +108,7 @@ export function useEthers(): Web3Ethers {
           result.connector.walletConnectProvider = null
       }
     }
-  }, [result])
+  }, [result,switchingChainId,chainIds,supportedChains])
 
   return { ...result,activateBrowserWallet,logout} 
 }

@@ -76,7 +76,11 @@ export function getRpcURL(chainId: ChainId){
     case ChainId.Goerli:
       return ["https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"]
     case ChainId.BSC:
-      return ["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"]
+      return [
+        "https://bsc-dataseed1.ninicoin.io",
+        "https://bsc-dataseed1.defibit.io",
+        "https://bsc-dataseed.binance.org"
+      ]
     case ChainId.xDai:
       return ["https://dai.poa.network"]
     case ChainId.Polygon:
@@ -88,7 +92,14 @@ export function getRpcURL(chainId: ChainId){
     case ChainId.Moonriver:
       return ["https://rpc.moonriver.moonbeam.network"]
     case ChainId.BSCTest:
-      return ["https://data-seed-prebsc-1-s1.binance.org:8545"]
+      return [
+        "https://data-seed-prebsc-1-s1.binance.org:8545",
+        "https://data-seed-prebsc-2-s1.binance.org:8545",
+        "https://data-seed-prebsc-1-s2.binance.org:8545",
+        "https://data-seed-prebsc-2-s2.binance.org:8545",
+        "https://data-seed-prebsc-1-s3.binance.org:8545",
+        "https://data-seed-prebsc-2-s3.binance.org:8545"
+      ]
     default:
       return []
   }
@@ -175,6 +186,7 @@ export function getChainNativeCurrency(chainId: ChainId):{name:string,symbol:str
 export const setupNetwork = async (chainId: ChainId): Promise<boolean> =>  {
   const provider = window.ethereum
   if (provider && provider.request) {
+
     try {
       await provider?.request({
         method: 'wallet_addEthereumChain',
@@ -190,7 +202,7 @@ export const setupNetwork = async (chainId: ChainId): Promise<boolean> =>  {
       })
       return true
     } catch (error) {
-      console.error('Failed to setup the network in Metamask:', error)
+      console.error('Failed to setup the network in Metamask:', error,chainId,getRpcURL(chainId))
       return false
     }
   } else {
