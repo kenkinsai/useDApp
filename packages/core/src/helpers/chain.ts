@@ -23,18 +23,26 @@ export function getExplorerAddressLink(address: string, chainId: ChainId) {
       return `https://${etherscanNetworkPrefix(chainId)}etherscan.io/address/${address}`
     case ChainId.BSC:
       return `https://bscscan.com/address/${address}`
+    case ChainId.BSCTestnet:
+      return `https://testnet.bscscan.com/address/${address}`
     case ChainId.xDai:
       return `https://blockscout.com/poa/xdai/address/${address}/transactions`
     case ChainId.Polygon:
       return `https://explorer-mainnet.maticvigil.com/address/${address}/transactions`
     case ChainId.Mumbai:
       return `https://explorer-mumbai.maticvigil.com/address/${address}/transactions`
+    case ChainId.Theta:
+      return `https://explorer.thetatoken.org/address/${address}`
+    case ChainId.ThetaTestnet:
+      return `https://testnet-explorer.thetatoken.org/address/${address}`
     case ChainId.Harmony:
       return `https://explorer.harmony.one/address/${address}`
     case ChainId.Moonriver:
       return `https://blockscout.moonriver.moonbeam.network/address/${address}/transactions`
-    case ChainId.BSCTest:
-      return `https://testnet.bscscan.com/address/${address}`
+    case ChainId.Palm:
+      return `https://explorer.palm.io/address/${address}`
+    case ChainId.Fantom:
+      return `https://ftmscan.com/address/${address}`
   }
 }
 
@@ -48,18 +56,26 @@ export function getExplorerTransactionLink(transactionHash: string, chainId: Cha
       return `https://${etherscanNetworkPrefix(chainId)}etherscan.io/tx/${transactionHash}`
     case ChainId.BSC:
       return `https://bscscan.com/tx/${transactionHash}`
+    case ChainId.BSCTestnet:
+      return `https://testnet.bscscan.com/tx/${transactionHash}`
     case ChainId.xDai:
       return `https://blockscout.com/poa/xdai/tx/${transactionHash}/internal-transactions`
     case ChainId.Polygon:
       return `https://explorer-mainnet.maticvigil.com/tx/${transactionHash}/internal-transactions`
     case ChainId.Mumbai:
       return `https://explorer-mumbai.maticvigil.com/tx/${transactionHash}/internal-transactions`
+    case ChainId.Theta:
+      return `https://explorer.thetatoken.org/tx/${transactionHash}`
+    case ChainId.ThetaTestnet:
+      return `https://testnet-explorer.thetatoken.org/tx/${transactionHash}`
     case ChainId.Harmony:
       return `https://explorer.harmony.one/tx/${transactionHash}`
     case ChainId.Moonriver:
       return `https://blockscout.moonriver.moonbeam.network/tx/${transactionHash}/internal-transactions`
-    case ChainId.BSCTest:
-      return `https://testnet.bscscan.com/tx/${transactionHash}`
+    case ChainId.Palm:
+      return `https://explorer.palm.io/tx/${transactionHash}`
+    case ChainId.Fantom:
+      return `https://ftmscan.com/tx/${transactionHash}`
   }
 }
 
@@ -91,7 +107,7 @@ export function getRpcURL(chainId: ChainId){
       return ["https://api.harmony.one"]
     case ChainId.Moonriver:
       return ["https://rpc.moonriver.moonbeam.network"]
-    case ChainId.BSCTest:
+    case ChainId.BSCTestnet:
       return [
         "https://data-seed-prebsc-1-s1.binance.org:8545",
         "https://data-seed-prebsc-2-s1.binance.org:8545",
@@ -137,7 +153,7 @@ export function getExplorerLink(chainId: ChainId) : string{
       return `https://explorer.harmony.one/`
     case ChainId.Moonriver:
       return `https://blockscout.moonriver.moonbeam.network/`
-    case ChainId.BSCTest:
+    case ChainId.BSCTestnet:
       return `https://testnet.bscscan.com/`
     default:
       return ''
@@ -168,7 +184,7 @@ export function getChainNativeCurrency(chainId: ChainId):{name:string,symbol:str
         decimals: 18,
       }
     case ChainId.BSC:
-    case ChainId.BSCTest:
+    case ChainId.BSCTestnet:
       return {
         name: 'BNB',
         symbol: 'bnb',

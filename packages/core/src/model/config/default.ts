@@ -10,17 +10,24 @@ export const DEFAULT_CONFIG: FullConfig = {
     ChainId.Rinkeby,
     ChainId.Ropsten,
     ChainId.BSC,
+    ChainId.BSCTestnet,
     ChainId.xDai,
     ChainId.Localhost,
     ChainId.Hardhat,
     ChainId.Polygon,
     ChainId.Mumbai,
+    ChainId.Theta,
+    ChainId.ThetaTestnet,
     ChainId.Harmony,
     ChainId.Moonriver,
-    ChainId.BSCTest,
+    ChainId.Palm,
+    ChainId.Fantom,
   ],
   notifications: {
     checkInterval: 500,
     expirationPeriod: 5000,
-  }
+  },
+  localStorage: {
+    transactionPath: 'transactions',
+  },
 }

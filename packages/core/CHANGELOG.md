@@ -1,5 +1,42 @@
 # @usedapp/core
 
+## 0.5.4
+
+### Patch Changes
+
+- daa3b7e: Added BSC Testnet chain ID and addresses along with currencies
+
+## 0.5.3
+
+### Patch Changes
+
+- eee8bc5: Skipping unparsable logs for useContractFunction
+- 5042868: Fantom support added
+
+## 0.5.2
+
+### Patch Changes
+
+- cf8e28d: Add support for Theta
+
+## 0.5.1
+
+### Patch Changes
+
+- aa95ff4: Add Palm support
+
+## 0.5.0
+
+### Minor Changes
+
+- f5a5c47: Added local storage path to config
+
+## 0.4.8
+
+### Patch Changes
+
+- a94fae5: Add missing lodash-merge dependency
+
 ## 0.4.7
 
 ### Patch Changes
